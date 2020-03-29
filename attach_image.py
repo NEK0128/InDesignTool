@@ -13,15 +13,15 @@ class ImageAttachment(object):
         code_list = [line for line in lines.split('\n')]
 
         filename_list = os.listdir(img_path)
+        sorted_filename_list = sorted(filename_list)
         with open(output_path, 'w') as f:
             for code in code_list:
-                match_filename = ''
-                for filename in filename_list:
+                match_filename_list = [] 
+                for filename in sorted_filename_list:
                     if code == filename.split('_')[0]:
-                        match_filename = filename
-                        break
-                if match_filename:
-                    f.write(f'{code}\t{match_filename}\n')
+                        match_filename_list.append(filename)
+                if len(match_filename_list):
+                    f.write(f'{code}\t' + '\t'.join(match_filename_list) + '\n')
                 else:
                     f.write(f'{code}\n')
 
